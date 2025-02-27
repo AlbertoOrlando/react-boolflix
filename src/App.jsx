@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [state, setState] = useState(''); // Initialize as an empty string
@@ -58,7 +60,13 @@ function App() {
               <p>{movie.original_language}</p>
             )}
             <p>{movie.overview}</p>
-            <p>{movie.vote_average}</p>
+            <p>
+              {Math.ceil(movie.vote_average / 2) >= 1 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(movie.vote_average / 2) >= 2 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(movie.vote_average / 2) >= 3 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(movie.vote_average / 2) >= 4 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(movie.vote_average / 2) >= 5 && <FontAwesomeIcon className='star' icon={faStar} />}
+            </p>
           </div>
         ))}
       </div>
@@ -91,7 +99,13 @@ function App() {
               <p>{serie.original_language}</p>
             )}
             <p>{serie.overview}</p>
-            <p>{serie.vote_average}</p>
+            <p>
+              {Math.ceil(serie.vote_average / 2) >= 1 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(serie.vote_average / 2) >= 2 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(serie.vote_average / 2) >= 3 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(serie.vote_average / 2) >= 4 && <FontAwesomeIcon className='star' icon={faStar} />}
+              {Math.ceil(serie.vote_average / 2) >= 5 && <FontAwesomeIcon className='star' icon={faStar} />}
+            </p>
           </div>
         ))}
       </div>
