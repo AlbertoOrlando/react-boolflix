@@ -3,7 +3,8 @@ import axios from 'axios'
 
 function App() {
   const [state, setState] = useState(''); // Initialize as an empty string
-  const [results, setResults] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [series, setSeries] = useState([]);
 
   function fetchResults(e) {
     e.preventDefault(); // Prevent default form submission
@@ -12,7 +13,8 @@ function App() {
 
     axios.all([movieRequest, tvRequest])
       .then(axios.spread((movieRes, tvRes) => {
-        setResults([...movieRes.data.results, ...tvRes.data.results]);
+        setMovies(movieRes.data.results);
+        setSeries(tvRes.data.results);
         setState('');
       }))
       .catch((err) => {
@@ -27,12 +29,23 @@ function App() {
         <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
         <button type="submit">cerca</button>
       </form>
+      <h2>Film</h2>
       <div className="results">
-        {results.map((result) => (
-          <div key={result.id}>
-            <h2>{result.title}</h2>
-            <img src={`https://image.tmdb.org/t/p/w300/${result.poster_path}`} alt={result.title} />
-            <p>{result.overview}</p>
+        {movies.map((movie) => (
+          <div key={movie.id}>
+            <h2>{movie.title}</h2>
+            <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} alt={movie.title} />
+            <p>{movie.overview}</p>
+          </div>
+        ))}
+      </div>
+      <h2>Serie TV</h2>
+      <div className="results">
+        {series.map((serie) => (
+          <div key={serie.id}>
+            <h2>{serie.name}</h2>
+            <img src={`https://image.tmdb.org/t/p/w300/${serie.poster_path}`} alt={serie.name} />
+            <p>{serie.overview}</p>
           </div>
         ))}
       </div>
