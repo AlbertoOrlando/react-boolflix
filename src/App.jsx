@@ -35,7 +35,7 @@ function App() {
           <div key={movie.id}>
             <h2>{movie.title}</h2>
             <h3>{movie.original_title}</h3>
-            <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} alt={movie.title} />
+            <img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`} alt={movie.title} />
             {movie.original_language === 'en' && (
               <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="Flag of English" />
             )}
@@ -68,7 +68,7 @@ function App() {
           <div key={serie.id}>
             <h2>{serie.name}</h2>
             <h3>{serie.original_name}</h3>
-            <img src={`https://image.tmdb.org/t/p/w300/${serie.poster_path}`} alt={serie.name} />
+            <img src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`} alt={serie.name} />
             {serie.original_language === 'en' && (
               <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="Flag of English" />
             )}
