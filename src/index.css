@@ -54,7 +54,7 @@ header {
   position: relative;
 }
 
-.card img {
+.card .copertina {
   width: 100%;
   border-radius: 10px;
 }
@@ -90,6 +90,6 @@ header {
   display: block;
 }
 
-.card:hover img {
+.card:hover .copertina {
   display: none;
 }

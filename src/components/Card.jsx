@@ -39,12 +39,12 @@ const Card = ({ data }) => {
 
 
         <div className="card">
-            <img src={`https://image.tmdb.org/t/p/w342/${data.poster_path}`} alt={data.title} />
+            <img className="copertina" src={`https://image.tmdb.org/t/p/w342/${data.poster_path}`} alt={data.title} />
             <div className="card-info">
                 <h2>{isMovie ? data.title : data.name}</h2>
                 <h3>{isMovie ? data.original_title : data.original_name}</h3>
                 {flagCode ? (
-                    <img className='flag' src={`https://flagicons.lipis.dev/flags/4x3/${flagCode}.svg} alt={Bandiera ${flagCode}`} />
+                    <img className='flag' src={`https://flagicons.lipis.dev/flags/4x3/${flagCode}.svg`} alt={`Bandiera ${flagCode}`} />
                 ) : (
                     <p>{data.original_language}</p>
                 )}
