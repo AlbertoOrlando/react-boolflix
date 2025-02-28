@@ -1,6 +1,6 @@
 import CardList from '../components/CardList';
 
-export default function Results() {
+export default function Resultspage() {
     return (
         <CardList />
     );

@@ -1,7 +1,9 @@
-import { useState } from 'react'
-import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import axios from 'axios';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import GlobalContext from './context/GlobalContext';
+import Resultspage from './pages/Resultspage';
+import DefaultLayout from './layout/DefaultLayout';
 
 function App() {
   const [state, setState] = useState(''); // Initialize as an empty string
@@ -25,91 +27,15 @@ function App() {
   }
 
   return (
-    <>
-      <h1>boolflix</h1>
-      <form onSubmit={fetchResults}>
-        <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
-        <button type="submit">cerca</button>
-      </form>
-      {movies.length > 0 && <h2>Film</h2>}
-      <div className="results">
-        {movies.map((movie) => (
-          <div key={movie.id}>
-            <h2>{movie.title}</h2>
-            <h3>{movie.original_title}</h3>
-            <img src={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`} alt={movie.title} />
-            {movie.original_language === 'en' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="Flag of English" />
-            )}
-            {movie.original_language === 'it' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/it.svg" alt="Bandiera italiana" />
-            )}
-            {movie.original_language === 'es' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/es.svg" alt="Bandera española" />
-            )}
-            {movie.original_language === 'fr' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/fr.svg" alt="Drapeau français" />
-            )}
-            {movie.original_language === 'de' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/de.svg" alt="Deutsche Flagge" />
-            )}
-            {movie.original_language === 'ja' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/jp.svg" alt="Deutsche Flagge" />
-            )}
-            {!['en', 'it', 'es', 'fr', 'de', 'ja'].includes(movie.original_language) && (
-              <p>{movie.original_language}</p>
-            )}
-            <p>{movie.overview}</p>
-            <p>
-              {Math.ceil(movie.vote_average / 2) >= 1 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(movie.vote_average / 2) >= 2 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(movie.vote_average / 2) >= 3 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(movie.vote_average / 2) >= 4 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(movie.vote_average / 2) >= 5 && <FontAwesomeIcon className='star' icon={faStar} />}
-            </p>
-          </div>
-        ))}
-      </div>
-      {series.length > 0 && <h2>Serie TV</h2>}
-      <div className="results">
-        {series.map((serie) => (
-          <div key={serie.id}>
-            <h2>{serie.name}</h2>
-            <h3>{serie.original_name}</h3>
-            <img src={`https://image.tmdb.org/t/p/w342/${serie.poster_path}`} alt={serie.name} />
-            {serie.original_language === 'en' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="Flag of English" />
-            )}
-            {serie.original_language === 'it' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/it.svg" alt="Bandiera italiana" />
-            )}
-            {serie.original_language === 'es' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/es.svg" alt="Bandera española" />
-            )}
-            {serie.original_language === 'fr' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/fr.svg" alt="Drapeau français" />
-            )}
-            {serie.original_language === 'de' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/de.svg" alt="Deutsche Flagge" />
-            )}
-            {serie.original_language === 'ja' && (
-              <img className='flag' src="https://flagicons.lipis.dev/flags/4x3/jp.svg" alt="Deutsche Flagge" />
-            )}
-            {!['en', 'it', 'es', 'fr', 'de', 'ja'].includes(serie.original_language) && (
-              <p>{serie.original_language}</p>
-            )}
-            <p>{serie.overview}</p>
-            <p>
-              {Math.ceil(serie.vote_average / 2) >= 1 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(serie.vote_average / 2) >= 2 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(serie.vote_average / 2) >= 3 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(serie.vote_average / 2) >= 4 && <FontAwesomeIcon className='star' icon={faStar} />}
-              {Math.ceil(serie.vote_average / 2) >= 5 && <FontAwesomeIcon className='star' icon={faStar} />}
-            </p>
-          </div>
-        ))}
-      </div>
-    </>
+    <GlobalContext.Provider value={{ movies, series, fetchResults, state, setState }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<DefaultLayout />}>
+            <Route index element={<Resultspage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </GlobalContext.Provider>
   );
 }
 
